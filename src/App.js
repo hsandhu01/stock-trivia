@@ -5,6 +5,7 @@ import Leaderboard from './components/Leaderboard';
 import UserProfile from './components/UserProfile';
 import Achievements from './components/Achievements';
 import StockLookup from './components/StockLookup';
+import TwitterFeed from './components/TwitterFeed';
 import LandingPage from './components/LandingPage';
 import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -25,6 +26,7 @@ function App() {
           <Button color="inherit" component={Link} to="/profile">Profile</Button>
           <Button color="inherit" component={Link} to="/achievements">Achievements</Button>
           <Button color="inherit" component={Link} to="/stock-lookup">Stock Lookup</Button>
+          <Button color="inherit" component={Link} to="/twitter-feed">Twitter Feed</Button>
         </Toolbar>
       </AppBar>
       <Box sx={{ position: 'relative', height: '100vh' }}>
@@ -44,6 +46,7 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/stock-lookup" element={<StockLookup />} />
+            <Route path="/twitter-feed" element={<TwitterFeed handles={['DeItaone', 'theroaringkitty', 'faststockmarketnews']} />} />
           </Routes>
         </Box>
         {showConfetti && <Confetti width={width} height={height} />}
