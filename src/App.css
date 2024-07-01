@@ -1,88 +1,57 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes correctAnswer {
-  0% {
-    background-color: white;
-    transform: scale(1);
-  }
-  50% {
-    background-color: limegreen;
-    transform: scale(1.1);
-  }
-  100% {
-    background-color: white;
-    transform: scale(1);
-  }
-}
-
-@keyframes incorrectAnswer {
-  0% {
-    background-color: white;
-    transform: scale(1);
-  }
-  50% {
-    background-color: red;
-    transform: scale(1.1);
-  }
-  100% {
-    background-color: white;
-    transform: scale(1);
-  }
-}
-
-.correct {
-  animation: correctAnswer 0.5s ease-in-out;
-}
-
-.incorrect {
-  animation: incorrectAnswer 0.5s ease-in-out;
-}
-
 body {
-  background: linear-gradient(45deg, #283c86, #45a247);
-  height: 100vh;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+  padding: 0;
   font-family: 'Arial', sans-serif;
-  overflow: hidden;
-  background-size: 400% 400%;
-  animation: gradientBackground 15s ease infinite;
-}
-
-@keyframes gradientBackground {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  background: url('https://source.unsplash.com/1600x900/?abstract,technology') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.9); /* Increased transparency */
-  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  text-align: center;
+}
+
+.question-container {
+  background: rgba(0, 0, 0, 0.8);
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px); /* Add blur effect */
-  max-width: 600px; /* Added max-width */
-  margin: auto; /* Centered the box */
+  border-radius: 10px;
+  width: 80%;
+  max-width: 700px;
+  margin: auto;
 }
 
-button {
-  transition: transform 0.2s;
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-button:hover {
+.answer-button {
+  padding: 10px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.answer-button:hover {
+  background: linear-gradient(to right, #00c6ff, #007bff);
   transform: scale(1.05);
+}
+
+.answer-button.correct {
+  background: linear-gradient(to right, #28a745, #85e085);
+}
+
+.answer-button.incorrect {
+  background: linear-gradient(to right, #dc3545, #f08080);
 }

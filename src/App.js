@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import Trivia from './components/Trivia';
 import Leaderboard from './components/Leaderboard';
+import UserProfile from './components/UserProfile';
+import Achievements from './components/Achievements';
+import LandingPage from './components/LandingPage';
 import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
@@ -12,11 +15,14 @@ function App() {
   const [showConfetti, setShowConfetti] = useState(false);
 
   return (
-    <Router>
+    <>
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit" component={Link} to="/">Trivia</Button>
+          <Button color="inherit" component={Link} to="/">Home</Button>
+          <Button color="inherit" component={Link} to="/trivia">Trivia</Button>
           <Button color="inherit" component={Link} to="/leaderboard">Leaderboard</Button>
+          <Button color="inherit" component={Link} to="/profile">Profile</Button>
+          <Button color="inherit" component={Link} to="/achievements">Achievements</Button>
         </Toolbar>
       </AppBar>
       <Box sx={{ position: 'relative', height: '100vh' }}>
@@ -30,13 +36,16 @@ function App() {
         </motion.div>
         <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
           <Routes>
-            <Route path="/" element={<Trivia setShowConfetti={setShowConfetti} />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/trivia" element={<Trivia setShowConfetti={setShowConfetti} />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/achievements" element={<Achievements />} />
           </Routes>
         </Box>
         {showConfetti && <Confetti width={width} height={height} />}
       </Box>
-    </Router>
+    </>
   );
 }
 

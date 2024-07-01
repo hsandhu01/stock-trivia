@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, onSnapshot, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Button, Container, Typography, Box, LinearProgress, TextField } from '@mui/material';
+import { Button, Container, Typography, Box, LinearProgress, TextField, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
 import '../App.css';
 
@@ -13,6 +13,7 @@ const Trivia = ({ setShowConfetti }) => {
   const [answerFeedback, setAnswerFeedback] = useState(null);
   const [username, setUsername] = useState('');
   const [timeLeft, setTimeLeft] = useState(10); // 10 seconds for each question
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
   useEffect(() => {
     const q = query(collection(db, 'triviaQuestions'));
@@ -36,6 +37,7 @@ const Trivia = ({ setShowConfetti }) => {
     setAnswerFeedback(isCorrect ? 'correct' : 'incorrect');
     if (isCorrect) {
       setScore(score + 1);
+      setCorrectAnswers(correctAnswers + 1);
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2000); // Confetti for 2 seconds
     }
@@ -94,17 +96,11 @@ const Trivia = ({ setShowConfetti }) => {
   const progress = (currentQuestionIndex / questions.length) * 100;
 
   return (
-    <Container className="container" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-      <Box mt={5} textAlign="center" className="fade-in">
-        <LinearProgress variant="determinate" value={progress} />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Typography variant="h5" mt={2}>{currentQuestion.question}</Typography>
-        </motion.div>
-        <Box mt={3}>
+    <Container className="container">
+      <LinearProgress variant="determinate" value={progress} />
+      <Paper elevation={3} className="question-container" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <Typography variant="h4" mt={2}>{currentQuestion.question}</Typography>
+        <Box className="answers-container">
           {currentQuestion.answers.map((answer, index) => (
             <motion.div
               key={index}
@@ -112,13 +108,9 @@ const Trivia = ({ setShowConfetti }) => {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                variant="contained"
+                className={`answer-button ${selectedAnswerIndex === index ? answerFeedback : ''}`}
                 onClick={() => handleAnswer(answer.isCorrect, index)}
                 fullWidth
-                style={{ margin: '10px 0' }}
-                className={
-                  selectedAnswerIndex === index ? answerFeedback : ''
-                }
               >
                 {answer.text}
               </Button>
@@ -134,7 +126,10 @@ const Trivia = ({ setShowConfetti }) => {
           <LinearProgress variant="determinate" value={(timeLeft / 10) * 100} />
           <Typography variant="h6">Time Left: {timeLeft}s</Typography>
         </Box>
-      </Box>
+        <Box mt={3}>
+          <Typography variant="h6">Correct Answers: {correctAnswers}</Typography>
+        </Box>
+      </Paper>
     </Container>
   );
 };
