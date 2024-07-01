@@ -4,6 +4,7 @@ import Trivia from './components/Trivia';
 import Leaderboard from './components/Leaderboard';
 import UserProfile from './components/UserProfile';
 import Achievements from './components/Achievements';
+import StockLookup from './components/StockLookup';
 import LandingPage from './components/LandingPage';
 import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -23,6 +24,7 @@ function App() {
           <Button color="inherit" component={Link} to="/leaderboard">Leaderboard</Button>
           <Button color="inherit" component={Link} to="/profile">Profile</Button>
           <Button color="inherit" component={Link} to="/achievements">Achievements</Button>
+          <Button color="inherit" component={Link} to="/stock-lookup">Stock Lookup</Button>
         </Toolbar>
       </AppBar>
       <Box sx={{ position: 'relative', height: '100vh' }}>
@@ -41,6 +43,7 @@ function App() {
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/achievements" element={<Achievements />} />
+            <Route path="/stock-lookup" element={<StockLookup />} />
           </Routes>
         </Box>
         {showConfetti && <Confetti width={width} height={height} />}
